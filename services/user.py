@@ -22,7 +22,7 @@ def get_user(user_id: int) -> AbstractBaseUser:
 def update_user(user_id: int, username: str = None, password: str = None,
                 email: str = None, first_name: str = None,
                 last_name: str = None) -> None:
-    user = get_user_model().objects.get(id=user_id)
+    user = get_user(user_id)
     if username is not None:
         user.username = username
     if password is not None:
