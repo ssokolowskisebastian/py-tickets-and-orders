@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.db import models
 
-import settings
+from django.conf import settings
 
 
 class Genre(models.Model):
@@ -62,7 +62,7 @@ class Order(models.Model):
                              on_delete=models.CASCADE, related_name="orders")
 
     def __str__(self) -> str:
-        return f"{self.created_at}"
+        return f"{self.created_at:%Y-%m-%d %H:%M:%S}"
 
     class Meta:
         ordering = ["-created_at"]
@@ -78,8 +78,9 @@ class Ticket (models.Model):
     seat = models.IntegerField()
 
     def __str__(self) -> str:
-        return (f"{self.movie_session} (row: {self.row}, seat:"
-                f" {self.seat})")
+        return (f"{self.movie_session.movie.title} "
+                f"{self.movie_session.show_time} (row: {self.row}, "
+                f"seat: {self.seat})")
 
     def clean(self) -> None:
         rows = self.movie_session.cinema_hall.rows
