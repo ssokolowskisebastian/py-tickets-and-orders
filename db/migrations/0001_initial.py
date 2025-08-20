@@ -109,6 +109,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddConstraint(
             model_name='ticket',
-            constraint=models.UniqueConstraint(fields=('movie_session', 'row', 'seat'), name='unique_ticket_per_seat'),
+            constraint=models.UniqueConstraint(fields=('row', 'seat', 'movie_session'),
+                                               name='unique_ticket_per_seat'),
         ),
     ]
